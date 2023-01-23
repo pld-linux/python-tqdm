@@ -67,6 +67,9 @@ Szybki, rozszerzalny wskaźnik postępu.
 # only py3
 %{__sed} -i -e 's/--asyncio-mode=strict//; s/--durations-min=[.0-9]*//' setup.cfg
 
+# fail in collection stage with unexpected version of ipython tools installed
+%{__rm} tests/tests_notebook.py
+
 %build
 %if %{with python2}
 %py_build
@@ -74,7 +77,7 @@ Szybki, rozszerzalny wskaźnik postępu.
 %if %{with tests}
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
 PYTEST_PLUGINS="pytest_timeout" \
-%{__python} -m pytest tests -k 'not perf and not tests_notebook and not test_pandas'
+%{__python} -m pytest tests -k 'not perf and not test_pandas'
 %endif
 %endif
 
@@ -84,7 +87,7 @@ PYTEST_PLUGINS="pytest_timeout" \
 %if %{with tests}
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
 PYTEST_PLUGINS="pytest_asyncio.plugin,pytest_timeout" \
-%{__python3} -m pytest tests -k 'not perf and not tests_asyncio and not tests_notebook and not test_pandas' --asyncio-mode=strict --durations-min=0.1
+%{__python3} -m pytest tests -k 'not perf and not tests_asyncio and not test_pandas' --asyncio-mode=strict --durations-min=0.1
 %endif
 %endif
 
