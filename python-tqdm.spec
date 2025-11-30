@@ -1,15 +1,15 @@
-# TODO: bash-completion with tqdm/completion.sh
 #
 # Conditional build:
 %bcond_with	tests	# unit tests (get stuck on builders)
 %bcond_without	python2 # CPython 2.x module
-%bcond_without	python3 # CPython 3.x module
+%bcond_with	python3 # CPython 3.x module (built from python3-tqdm.spec)
 
 Summary:	Fast, Extensible Progress Meter
 Summary(pl.UTF-8):	Szybki, rozszerzalny wskaźnik postępu
 Name:		python-tqdm
+# keep 4.64.x here for python2 support
 Version:	4.64.1
-Release:	4
+Release:	5
 License:	MPL v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/tqdm/
